@@ -31,4 +31,24 @@ class Activity
       acc
     end
   end
+
+  def payees(p_name)
+    to_pay = {}
+    p_owe = owed[p_name].positive?
+    p_owed = owed[p_name].negative?
+    if p_owe
+      remaining = owed.reject {|part, amount| part == p_name
+        amount.positive?}
+      payee_amount = owed[p_name] / remaining.length
+      payee = remaining.map {|part, amount| part}
+    elsif p_owed
+      remaining = owed.reject {|part, amount| part == p_name
+        amount.negative?}
+      payee_amount = owed[p_name] / remaining.length
+      payee = remaining.map {|part, amount| part}
+    end
+    to_pay[payee] = payee_amount
+    to_pay
+  end
+
 end

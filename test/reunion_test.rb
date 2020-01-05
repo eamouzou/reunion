@@ -157,8 +157,6 @@ class ReunionTest < Minitest::Test
     }
 
     assert_equal expected, @reunion.detailed_breakout
-
-
   end
 
 end

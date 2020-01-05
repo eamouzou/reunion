@@ -38,5 +38,20 @@ class Reunion
   end
 
   def detailed_breakout
+    hash = {}
+    set_hash = @activities.each do |activity|
+      activity.participants.each do |participant|
+        pname = participant[0]
+        hash[pname] = []
+      end
+    end
+
+    activity_hashes = @activities.each do |activity|
+      activity.participants.each do |participant|
+        pname = participant[0]
+        hash[pname] << {activity: activity.name, payees: (activity.payees(pname).first[0]), amount: (activity.payees(pname).first[1])}
+      end
+    end
+    hash
   end
 end
